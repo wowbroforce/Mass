@@ -6,6 +6,8 @@
 #include <ESP8266mDNS.h>
 #include "WebPageContent.h"
 
+typedef String (*GraphData) (void);
+
 struct WebPage {
 //  ESP8266WebServer server = ESP8266WebServer(80);
   ESP8266WebServer server = {80};
@@ -13,6 +15,7 @@ struct WebPage {
   unsigned long previousTime = 0; 
   const long timeoutTime = 2000;
   String header;
+  GraphData graphData;
 
   WebPage();
 
@@ -20,6 +23,7 @@ struct WebPage {
   void update();
   void root();
   void test();
+  void data();
 };
 
 
@@ -35,6 +39,11 @@ void WebPage::test() {
   server.send(200, "application/json", "{'message': 'success'}");
 };
 
+void WebPage::data() {
+  String data = graphData();
+  server.send(200, "text/html", data);
+}
+
 void WebPage::setup() {
   if (MDNS.begin("mashass")) {
     Serial.println("mDNS responder started");
@@ -44,8 +53,8 @@ void WebPage::setup() {
   
   server.on("/chart", HTTP_GET, [=](){ this->root(); });
   server.on("/test", HTTP_GET, [=](){ this->test(); });
+  server.on("/chart/data", HTTP_GET, [=](){ this->data(); });
   server.begin();
-  
 };
 
 void WebPage::update() {

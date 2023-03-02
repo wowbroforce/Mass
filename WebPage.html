@@ -1,7 +1,3 @@
-#ifndef WEB_PAGE_CONTENT_H
-#define WEB_PAGE_CONTENT_H
-
-const char webpage[] PROGMEM = R"=====(
 <!doctype html>
 <title>Mash Assistant</title>
 <style>
@@ -77,8 +73,5 @@ const char webpage[] PROGMEM = R"=====(
     }
   });
 
-  setInterval(update, 2000);
+  setInterval(update, 5000);
 </script>
-)=====";
-
-#endif
