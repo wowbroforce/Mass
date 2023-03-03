@@ -6,10 +6,10 @@
 class State {
 public:
   float temps[STATE_RECORD_COUNT];
-  unsigned long timestamps[STATE_RECORD_COUNT];
-  unsigned short recordCount = 0;
+  uint32_t timestamps[STATE_RECORD_COUNT];
+  uint16_t recordCount = 0;
 
-  void addTemp(const float temp, const unsigned long ts);
+  void addTemp(const float temp, const uint32_t ts);
   String toString();
 
   State();
@@ -21,7 +21,7 @@ private:
 State::State() {
 };
 
-void State::addTemp(const float temp, const unsigned long ts) {
+void State::addTemp(const float temp, const uint32_t ts) {
   Serial.print("record index = "); Serial.println(recordCount);
   if (recordCount >= STATE_RECORD_COUNT) {
     shift();
@@ -33,7 +33,7 @@ void State::addTemp(const float temp, const unsigned long ts) {
 
 String State::toString() {
   String string = "";
-  for (unsigned short i = 0; i < recordCount; ++i) {
+  for (uint16_t i = 0; i < recordCount; ++i) {
     string += timestamps[i];
     string += ":";
     string += temps[i];
@@ -44,7 +44,7 @@ String State::toString() {
 }
 
 void State::shift() {
-  for (unsigned long i = 1; i < STATE_RECORD_COUNT; ++i) {
+  for (uint16_t i = 1; i < STATE_RECORD_COUNT; ++i) {
     temps[i - 1] = temps[i];
     timestamps[i - 1] = timestamps[i]; 
   }

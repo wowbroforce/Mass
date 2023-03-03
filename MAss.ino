@@ -2,11 +2,11 @@
 #include <EEPROM.h>
 #include <NTPClient.h>
 #include <Adafruit_MAX31865.h>
-#include "WebPage.h"
+#include "WebServer.h"
 #include "State.h"
 
 // MiFi Manager
-#define AC_SSID "MAss WiFI Setup"
+#define AC_SSID "Mass WiFI Setup"
 #define AC_PASS "11111111"
 
 // The value of the Rref resistor. Use 430.0 for PT100 and 4300.0 for PT1000
@@ -20,7 +20,7 @@
 #define THERMO_CS   D1
 
 
-WebPage page;
+WebServer server;
 State state;
 
 WiFiUDP ntpUDP;
@@ -29,8 +29,6 @@ Adafruit_MAX31865 thermo = Adafruit_MAX31865(THERMO_CS, THERMO_SDI, THERMO_SDO, 
 
 void setup() {
   // put your setup code here, to run once:
-
-
   Serial.begin(115200);
   Serial.println();
   delay(1000);
@@ -47,8 +45,8 @@ void setup() {
   Serial.println("Starting MAX31865 client...");
   thermo.begin(MAX31865_3WIRE);  // set to 2WIRE or 4WIRE as necessary
 
-  page.setup();
-  page.graphData = graphData;
+  server.setup();
+  server.onChartDataRequest = onChartDataRequest;
 }
 
 unsigned long timeClientLastUpdate;
@@ -56,7 +54,7 @@ unsigned long timeClientUpdateInterval = 5000;
 
 void loop() {
   // put your main code here, to run repeatedly:
-  page.update();
+  server.update();
 
   unsigned long currentMillis = millis();
   unsigned long duration = currentMillis - timeClientLastUpdate;
@@ -68,7 +66,7 @@ void loop() {
   readTempAndTimestamp();
 }
 
-String graphData() {
+String onChartDataRequest() {
   String data = state.toString();
   Serial.println("Data = " + data);
   return data;

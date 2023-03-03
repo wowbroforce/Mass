@@ -1,0 +1,33 @@
+#ifndef SETTINGS_WEB_PAGE_H
+#define SETTINGS_WEB_PAGE_H
+
+const char settingsWebPage[] PROGMEM = R"=====(
+<!doctype html>
+<title>Mash Assistant Settings</title>
+<style>
+    div {
+        padding-top: 16pt; 
+        padding-bottom: 4pt;
+        font-size: medium;
+    }
+</style>
+<script>
+    
+</script>
+<div>
+    <form action="/settings" method="post">
+        <div>
+            Upper temperature threshold
+        </div>
+        <input type="number" name="settings[upper_threshold]">
+        <div>
+            Lower temperature threshold
+        </div>
+        <input type="number" name="settings[lower_threshold]">
+        <div/>
+        <button type="submit">Save</button>
+    </form>
+</div>
+)=====";
+
+#endif

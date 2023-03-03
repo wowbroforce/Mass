@@ -1,19 +1,22 @@
+#ifndef CHART_WEB_PAGE_H
+#define CHART_WEB_PAGE_H
+
+const char chartWebPage[] PROGMEM = R"=====(
 <!doctype html>
 <title>Mash Assistant</title>
-<style>
-  .currentTemperatureNumber {
-    text-align: center;
-    font-size: xx-large;
-  }
-</style>
 <div>
-    <div style="text-align: center; font-size: large;">
-      Current temperature
-    </div>
-    <div id="currentTemperature" style="text-align: center; font-size: 64px;">
-      N/A
-    </div>
-    <canvas id="myChart"></canvas>
+  <div style="position: absolute; top:0; right:0; padding: 16pt;">
+    <a href="/settings">
+      <button>Settings</button>
+    </a>
+  </div>
+  <div style="text-align: center; font-size: large; padding: 16pt;">
+    Current temperature
+  </div>
+  <div id="currentTemperature" style="text-align: center; font-size: 64px;">
+    N/A
+  </div>
+  <canvas id="myChart"></canvas>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -75,3 +78,6 @@
 
   setInterval(update, 5000);
 </script>
+)=====";
+
+#endif
