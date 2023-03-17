@@ -5,10 +5,10 @@
 
 [x] Read and show current temperature 
 
-[] Set temperature limits
+[ ] Set temperature limits
 
-[] Notifi when temps go off the limits
+[ ] Notifi when temps go off the limits
 
 [x] Show temperature graph over time
 
-[] Show temperature rising/falling
+[ ] Show temperature rising/falling
